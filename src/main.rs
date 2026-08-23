@@ -26,7 +26,7 @@ async fn run_app() -> anyhow::Result<()> {
     let mut agent = OrchestratorAgent::new(
         OrchestratorParamsBuilder::default()
             .env(Environment::default())
-            .model_name("qwen3.8-max")
+            .model_name(std::env::var("MODEL_NAME").unwrap_or("opus-5".into()))
             .client(anthropic::Client::from_env()?)
             .memory(InMemoryConversationMemory::new())
             .build()
@@ -51,7 +51,10 @@ async fn run_app() -> anyhow::Result<()> {
         if line.trim().is_empty() {
             continue;
         }
-        agent.send_turn(Message::user(line), 32_000).await?;
+        let response = agent.send_turn(Message::user(line), 32_000).await;
+        if let Err(err) = response {
+            eprintln!("Model error \"{err}\": {}", err.root_cause());
+        }
     }
     Ok(())
 }

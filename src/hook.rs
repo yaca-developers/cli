@@ -53,10 +53,7 @@ impl AgentLifecycleHook for TuiAgentLifecycleHook {
                 // TODO
             }
             MessageUpdate::ToolCallReplace(tool_call) => {
-                println!(
-                    "Used {}: {}",
-                    tool_call.function.name, tool_call.function.arguments
-                );
+                // TODO
             }
             MessageUpdate::ToolCallAppend { id, content } => match content {
                 ToolCallDeltaContent::Name(name) => println!("Using {name}: "),
