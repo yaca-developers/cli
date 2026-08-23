@@ -10,3 +10,6 @@ tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros"] }
 anyhow = "1.0.104"
 ratatui = "0.30.2"
 tui-input = "0.15.4"
+rmcp = { version = "2", features = ["client", "macros", "transport-streamable-http-client-reqwest"] }
+reqwest = "*"
+tracing-subscriber = "0.3"
