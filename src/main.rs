@@ -4,7 +4,7 @@ use anyhow::Context;
 use reqwest::header::{HeaderMap, HeaderName};
 use rig::http_client::ReqwestClient;
 use rig::prelude::*;
-use rig::providers::anthropic;
+use rig::providers::{anthropic, openrouter};
 use rig::{
     client::ProviderClient,
     memory::InMemoryConversationMemory,
@@ -27,7 +27,7 @@ async fn run_app() -> anyhow::Result<()> {
         OrchestratorParamsBuilder::default()
             .env(Environment::default())
             .model_name(std::env::var("MODEL_NAME").unwrap_or("opus-5".into()))
-            .client(anthropic::Client::from_env()?)
+            .client(openrouter::Client::from_env().unwrap())
             .memory(InMemoryConversationMemory::new())
             .build()
             .unwrap()
