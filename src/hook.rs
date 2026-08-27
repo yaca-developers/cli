@@ -1,67 +1,55 @@
-use anyhow::Context;
-use rig::{
-    message::{AssistantContent, ReasoningContent, UserContent},
-    prelude::*,
-    streaming::ToolCallDeltaContent,
-};
 use std::io::{self, Write};
-use tokio::io::AsyncWriteExt;
-use yaca_core::agent::{AgentLifecycleHook, MessageUpdate};
 
-pub struct TuiAgentLifecycleHook;
+use yaca_transport::{
+    AssistantContent, Event, Message, MessageUpdate, ReasoningContent,
+    ToolCallDeltaContent, UserContent,
+};
 
-impl AgentLifecycleHook for TuiAgentLifecycleHook {
-    async fn on_switch_conversation(
-        &self,
-        id: &str,
-        memory: Result<Vec<rig::prelude::Message>, rig::memory::MemoryError>,
-    ) -> anyhow::Result<()> {
-        match memory {
-            Ok(memories) => {
-                for message in memories {
-                    print_message(&message);
-                }
+pub fn render_event(event: &Event) -> anyhow::Result<()> {
+    match event {
+        Event::SwitchConversation {
+            messages: Ok(messages),
+            ..
+        } => {
+            for message in messages {
+                print_message(message);
             }
-            Err(err) => eprintln!("{err}"),
         }
-        Ok(())
-    }
-
-    async fn on_new_message(
-        &self,
-        index: usize,
-        message: &rig::prelude::Message,
-    ) -> anyhow::Result<()> {
-        print_message(message);
-        Ok(())
-    }
-
-    async fn on_update_message(
-        &self,
-        index: usize,
-        message: &yaca_core::agent::MessageUpdate,
-    ) -> anyhow::Result<()> {
-        match message {
-            MessageUpdate::Replace(message) => {
-                // TODO
+        Event::SwitchConversation {
+            messages: Err(err), ..
+        } => eprintln!("{err}"),
+        Event::NewMessage { message, .. } => print_message(message),
+        Event::UpdateMessage { update, .. } => render_update(update)?,
+        Event::TurnCompleted { error, .. } => {
+            if !error.is_empty() {
+                eprintln!("{error}");
             }
-            MessageUpdate::AssistantTextAppend(text) => {
-                print!("{}", text.text)
-            }
-            MessageUpdate::AssistantReasoningAppend(text) => print!("{}", text),
-            MessageUpdate::AssistantReasoningReplace(reasoning_contents) => {
-                // TODO
-            }
-            MessageUpdate::ToolCallReplace(tool_call) => {
-                // TODO
-            }
-            MessageUpdate::ToolCallAppend { id, content } => match content {
-                ToolCallDeltaContent::Name(name) => println!("Using {name}: "),
-                ToolCallDeltaContent::Delta(argument) => print!("{argument}"),
-            },
         }
-        io::stdout().flush().with_context(|| "flushing stdout")
+        Event::AgentDestroyed { reason } => eprintln!("{reason}"),
     }
+    io::stdout().flush()?;
+    Ok(())
+}
+
+fn render_update(update: &MessageUpdate) -> anyhow::Result<()> {
+    match update {
+        MessageUpdate::Replace(message) => print_message(message),
+        MessageUpdate::AssistantTextAppend(text) => print!("{}", text.text),
+        MessageUpdate::AssistantReasoningAppend(text) => print!("{text}"),
+        MessageUpdate::AssistantReasoningReplace(reasoning_contents) => {
+            for content in reasoning_contents {
+                print!("{}", reasoning_text(content));
+            }
+        }
+        MessageUpdate::ToolCallReplace(tool_call) => {
+            println!("Using {}", tool_call.function.name)
+        }
+        MessageUpdate::ToolCallAppend { id: _, content } => match content {
+            ToolCallDeltaContent::Name(name) => println!("Using {name}: "),
+            ToolCallDeltaContent::Delta(argument) => print!("{argument}"),
+        },
+    }
+    Ok(())
 }
 
 fn print_message(message: &Message) {
@@ -76,7 +64,7 @@ fn print_message(message: &Message) {
                 }
             }
         }
-        Message::Assistant { id, content } => {
+        Message::Assistant { id: _, content } => {
             print!("Assistant: ");
             for item in content.iter() {
                 match item {
@@ -90,14 +78,7 @@ fn print_message(message: &Message) {
                             reasoning
                                 .content
                                 .iter()
-                                .map(|it| match it {
-                                    ReasoningContent::Text { text, signature: _ } => text.clone(),
-                                    ReasoningContent::Encrypted(text) => text.clone(),
-                                    ReasoningContent::Redacted { data } =>
-                                        data.replace(|_| true, "*"),
-                                    ReasoningContent::Summary(text) => text.clone(),
-                                    _ => "".into(),
-                                })
+                                .map(reasoning_text)
                                 .collect::<Vec<_>>()
                                 .join("\n")
                         );
@@ -106,5 +87,14 @@ fn print_message(message: &Message) {
                 }
             }
         }
+    }
+}
+
+fn reasoning_text(content: &ReasoningContent) -> String {
+    match content {
+        ReasoningContent::Text { text, signature: _ } => text.clone(),
+        ReasoningContent::Encrypted(text) => text.clone(),
+        ReasoningContent::Redacted { data } => data.replace(|_| true, "*"),
+        ReasoningContent::Summary(text) => text.clone(),
     }
 }

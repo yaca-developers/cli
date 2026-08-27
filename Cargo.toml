@@ -4,12 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-yaca-core = { path = "../yaca-core" }
-rig = "*"
-tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros"] }
 anyhow = "1.0.104"
-ratatui = "0.30.2"
-tui-input = "0.15.4"
-rmcp = { version = "2", features = ["client", "macros", "transport-streamable-http-client-reqwest"] }
-reqwest = "*"
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "sync", "time", "io-util"] }
+tracing = "0.1"
 tracing-subscriber = "0.3"
+yaca-transport = { path = "../yaca-transport" }

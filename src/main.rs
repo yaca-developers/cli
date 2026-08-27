@@ -1,59 +1,54 @@
 use std::io::{self, BufRead};
 
 use anyhow::Context;
-use reqwest::header::{HeaderMap, HeaderName};
-use rig::http_client::ReqwestClient;
-use rig::prelude::*;
-use rig::providers::{anthropic, openrouter};
-use rig::{
-    client::ProviderClient,
-    memory::InMemoryConversationMemory,
-    providers::{ollama, openai},
-};
-use rmcp::transport::StreamableHttpClientTransport;
-use rmcp::transport::streamable_http_client::StreamableHttpClientTransportConfig;
-use yaca_core::agent::orchestrator::OrchestratorParamsBuilder;
-use yaca_core::{
-    agent::{Agent, orchestrator::OrchestratorAgent},
-    tools::Environment,
-};
-
-use crate::hook::TuiAgentLifecycleHook;
+use yaca_transport::{Event, Message};
 
 mod hook;
 
+fn default_uri() -> String {
+    std::env::var("YACA_CONNECT").unwrap_or_else(|_| yaca_transport::default_unix_uri())
+}
+
+fn next_turn_id(counter: &mut u64) -> String {
+    *counter += 1;
+    format!("turn-{counter}")
+}
+
 async fn run_app() -> anyhow::Result<()> {
-    let mut agent = OrchestratorAgent::new(
-        OrchestratorParamsBuilder::default()
-            .env(Environment::default())
-            .model_name(std::env::var("MODEL_NAME").unwrap_or("opus-5".into()))
-            .client(openrouter::Client::from_env().unwrap())
-            .memory(InMemoryConversationMemory::new())
-            .build()
-            .unwrap()
-            .with_mcp_servers(
-                [StreamableHttpClientTransport::with_client(
-                    ReqwestClient::default(),
-                    StreamableHttpClientTransportConfig::with_uri("https://mcp.kagi.com/mcp")
-                        .auth_header(
-                            std::env::var("KAGI_API_KEY").with_context(|| "KAGI_API_KEY")?,
-                        ),
-                )],
-                |_| true,
-            )
-            .await?,
-        "main",
-    )
-    .with_lifecycle_hook(TuiAgentLifecycleHook)
-    .await;
-    let mut stdin = io::stdin().lock().lines();
-    while let Some(Ok(line)) = stdin.next() {
+    let uri = default_uri();
+    eprintln!("connecting to {uri}");
+    let conn = yaca_transport::connect(&uri)
+        .await
+        .with_context(|| format!("connecting to {uri}"))?;
+    let agent = conn.create_agent("main", None::<String>).await?;
+    let mut events = conn.subscribe(agent.id()).await?;
+    let mut turn_id_counter = 0u64;
+    let stdin = io::stdin();
+
+    for line in stdin.lock().lines() {
+        let line = line?;
         if line.trim().is_empty() {
             continue;
         }
-        let response = agent.send_turn(Message::user(line), 32_000).await;
-        if let Err(err) = response {
-            eprintln!("Model error \"{err}\": {}", err.root_cause());
+        let current_turn_id = next_turn_id(&mut turn_id_counter);
+        let send_result = agent
+            .send_turn(Message::user(line), 32_000, current_turn_id.clone())
+            .await;
+
+        if let Err(err) = send_result {
+            eprintln!("Model error: {err:#}");
+        }
+
+        while let Some(event) = events.next_event().await {
+            let event = event?;
+            let turn_completed = matches!(
+                &event,
+                Event::TurnCompleted { turn_id, .. } if turn_id == &current_turn_id
+            );
+            hook::render_event(&event)?;
+            if turn_completed {
+                break;
+            }
         }
     }
     Ok(())
@@ -63,6 +58,6 @@ async fn run_app() -> anyhow::Result<()> {
 async fn main() {
     tracing_subscriber::fmt::init();
     if let Err(err) = run_app().await {
-        eprintln!("{err}: {}", err.root_cause());
+        eprintln!("{err:#}");
     }
 }

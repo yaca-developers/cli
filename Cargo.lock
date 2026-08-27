@@ -2371,7 +2371,7 @@ dependencies = [
 [[package]]
 name = "filedescriptor"
 version = "0.8.3"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "libc",
  "thiserror 1.0.69",
@@ -7137,12 +7137,12 @@ dependencies = [
 [[package]]
 name = "termwiz"
 version = "0.24.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "anyhow",
  "bitflags 2.13.1",
  "fancy-regex 0.14.0",
- "filedescriptor 0.8.3 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "filedescriptor 0.8.3 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "finl_unicode 1.3.0",
  "fixedbitset 0.4.2",
  "image",
@@ -7165,14 +7165,14 @@ dependencies = [
  "ucd-trie",
  "unicode-segmentation",
  "vtparse 0.7.0",
- "wezterm-bidi 0.2.3 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-blob-leases 0.1.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-bidi 0.2.3 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-blob-leases 0.1.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-cell",
  "wezterm-char-props",
- "wezterm-color-types 0.3.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-color-types 0.3.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-escape-parser",
- "wezterm-input-types 0.1.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-input-types 0.1.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-surface",
  "winapi",
 ]
@@ -7838,7 +7838,7 @@ dependencies = [
 [[package]]
 name = "vtparse"
 version = "0.7.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "utf8parse",
 ]
@@ -8024,10 +8024,10 @@ dependencies = [
 [[package]]
 name = "wezterm-bidi"
 version = "0.2.3"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "log",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
 ]
 
 [[package]]
@@ -8046,7 +8046,7 @@ dependencies = [
 [[package]]
 name = "wezterm-blob-leases"
 version = "0.1.1"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "getrandom 0.3.4",
  "sha2",
@@ -8057,7 +8057,7 @@ dependencies = [
 [[package]]
 name = "wezterm-cell"
 version = "0.1.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "finl_unicode 1.3.0",
  "image",
@@ -8066,17 +8066,17 @@ dependencies = [
  "serde",
  "sha2",
  "thiserror 1.0.69",
- "wezterm-blob-leases 0.1.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-blob-leases 0.1.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-char-props",
- "wezterm-color-types 0.3.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-color-types 0.3.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-escape-parser",
 ]
 
 [[package]]
 name = "wezterm-char-props"
 version = "0.1.3"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "phf 0.11.3",
  "serde",
@@ -8098,13 +8098,13 @@ dependencies = [
 [[package]]
 name = "wezterm-color-types"
 version = "0.3.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "csscolorparser",
  "deltae",
  "num-traits",
  "serde",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
 ]
 
 [[package]]
@@ -8123,13 +8123,13 @@ dependencies = [
 [[package]]
 name = "wezterm-dynamic"
 version = "0.2.1"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "log",
  "ordered-float 4.6.0",
  "strsim",
  "thiserror 2.0.20",
- "wezterm-dynamic-derive 0.1.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic-derive 0.1.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
 ]
 
 [[package]]
@@ -8146,7 +8146,7 @@ dependencies = [
 [[package]]
 name = "wezterm-dynamic-derive"
 version = "0.1.1"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -8156,7 +8156,7 @@ dependencies = [
 [[package]]
 name = "wezterm-escape-parser"
 version = "0.1.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "base64 0.22.1",
  "bitflags 2.13.1",
@@ -8172,10 +8172,10 @@ dependencies = [
  "sha2",
  "thiserror 2.0.20",
  "vtparse 0.7.0",
- "wezterm-blob-leases 0.1.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-color-types 0.3.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-input-types 0.1.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-blob-leases 0.1.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-color-types 0.3.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-input-types 0.1.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "winapi",
 ]
 
@@ -8195,18 +8195,18 @@ dependencies = [
 [[package]]
 name = "wezterm-input-types"
 version = "0.1.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "bitflags 1.3.2",
  "euclid",
  "serde",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
 ]
 
 [[package]]
 name = "wezterm-surface"
 version = "0.1.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "bitflags 2.13.1",
  "fancy-regex 0.14.0",
@@ -8215,19 +8215,19 @@ dependencies = [
  "ordered-float 4.6.0",
  "siphasher",
  "unicode-segmentation",
- "wezterm-bidi 0.2.3 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-bidi 0.2.3 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-cell",
  "wezterm-char-props",
- "wezterm-color-types 0.3.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-color-types 0.3.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-escape-parser",
- "wezterm-input-types 0.1.0 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-input-types 0.1.0 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
 ]
 
 [[package]]
 name = "wezterm-term"
 version = "0.1.0"
-source = "git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
+source = "git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a#d9c5846ac90f5d12d73ee4ab048bfc8546b2bdaa"
 dependencies = [
  "anyhow",
  "bitflags 1.3.2",
@@ -8248,9 +8248,9 @@ dependencies = [
  "termwiz 0.24.0",
  "unicode-normalization",
  "url",
- "wezterm-bidi 0.2.3 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-bidi 0.2.3 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-cell",
- "wezterm-dynamic 0.2.1 (git+ssh://git@github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
+ "wezterm-dynamic 0.2.1 (git+https://github.com/yaca-developers/wezterm.git?rev=d9c5846a)",
  "wezterm-escape-parser",
  "wezterm-surface",
 ]
